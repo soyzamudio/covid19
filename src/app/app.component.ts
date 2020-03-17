@@ -19,13 +19,17 @@ export class AppComponent {
 
   constructor(public api: ApiService) {}
 
-  onKey(event: any) {
-    if (event.target.value.length > 3) {
-      this.filteredByCountry = event.target.value;
-    } else {
-      this.filteredByCountry = null;
-    }
-  }
+  // onKey(event: any) {
+  //   if (event.target.value.length > 3) {
+  //     this.filteredByCountry = event.target.value;
+  //   } else {
+  //     this.filteredByCountry = null;
+  //   }
+  // }
+
+  // getChanged(event: any) {
+  //   this.filteredByCountry = event;
+  // }
 
   getRatio(deaths: number, cases: number): number {
     return (deaths / cases) * 100;

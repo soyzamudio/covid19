@@ -50,27 +50,27 @@
 
           <nz-row [nzGutter]="16" *ngIf="selectedCountry"
             class="cases-by-country">
-            <nz-col [nzSpan]="6">
+            <nz-col nzXs="24" nzSm="12" nzMd="6" nzLg="6" nzXl="6">
               <nz-statistic 
                 [nzValue]="selectedCountry.cases | number: '1.0-2'"
                 nzTitle="Casos en {{ selectedCountry.country }}">
               </nz-statistic>
             </nz-col>
-            <nz-col [nzSpan]="6">
+            <nz-col nzXs="24" nzSm="12" nzMd="6" nzLg="6" nzXl="6">
                 <nz-statistic 
                 [nzValue]="selectedCountry.deaths | number: '1.0-2'"
                 nzTitle="Muertes en {{ selectedCountry.country }}"
                 [nzValueStyle]="{ color: '#CF1322' }">
               </nz-statistic>
             </nz-col>
-            <nz-col [nzSpan]="6">
+            <nz-col nzXs="24" nzSm="12" nzMd="6" nzLg="6" nzXl="6">
               <nz-statistic 
                 [nzValue]="selectedCountry.recovered | number: '1.0-2'"
                 nzTitle="Recuperados en {{ selectedCountry.country }}"
                 [nzValueStyle]="{ color: '#3F8600' }">
               </nz-statistic>
             </nz-col>
-            <nz-col [nzSpan]="6">
+            <nz-col nzXs="24" nzSm="12" nzMd="6" nzLg="6" nzXl="6">
               <nz-statistic 
                 [nzValue]="getRatio(selectedCountry.deaths, selectedCountry.cases) | number: '1.0-2'"
                 nzSuffix="%"
@@ -79,12 +79,16 @@
             </nz-col>
           </nz-row>
 
-          <nz-input-group [nzSuffix]="suffixIconSearch">
+          <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Elige un País" [(ngModel)]="filteredByCountry">
+            <nz-option [nzLabel]="processName(item)" [nzValue]="processName(item)" *ngFor="let item of (countriesCount$ | async)"></nz-option>
+          </nz-select>
+
+          <!-- <nz-input-group [nzSuffix]="suffixIconSearch">
             <input (keyup)="onKey($event)" type="text" nz-input placeholder="Buscar por país" />
           </nz-input-group>
           <ng-template #suffixIconSearch>
             <i nz-icon nzType="search"></i>
-          </ng-template>
+          </ng-template> -->
 
           <nz-table #smallTable 
             nzSize="middle"

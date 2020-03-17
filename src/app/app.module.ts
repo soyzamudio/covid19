@@ -13,7 +13,7 @@ import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzProgressModule } from 'ng-zorro-antd/progress';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { ByCountryPipe } from './by-country.pipe';
-
+import { NzSelectModule } from 'ng-zorro-antd/select';
 
 registerLocaleData(en);
 
@@ -30,7 +30,8 @@ registerLocaleData(en);
     BrowserAnimationsModule,
     NzGridModule,
     NzProgressModule,
-    NzLayoutModule
+    NzLayoutModule,
+    NzSelectModule
   ],
   providers: [ApiService, { provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent]
