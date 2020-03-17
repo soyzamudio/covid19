@@ -1,11 +1,11 @@
 <div nz-row>
-  <div nz-col nzXs="2" nzSm="4" nzMd="3" nzLg="3" nzXl="2"></div>
-  <div nz-col nzXs="20" nzSm="16" nzMd="18" nzLg="18" nzXl="20">
+  <div nz-col nzXs="0" nzSm="0" nzMd="3" nzLg="3" nzXl="2"></div>
+  <div nz-col nzXs="24" nzSm="24" nzMd="18" nzLg="18" nzXl="20">
     <nz-content>
       <div class="inner-content">
         <h1>Casos Mundiales</h1>
         <nz-row [nzGutter]="16">
-          <nz-col [nzSpan]="6">
+          <nz-col nzXs="24" nzSm="12" nzMd="6" nzLg="6" nzXl="6">
             <nz-spin [nzSpinning]="!(totalCount$ | async)">
               <nz-statistic 
                 [nzValue]="((totalCount$ | async)?.cases | number: '1.0-2') || 'Cargando'" 
@@ -13,7 +13,7 @@
               </nz-statistic>
             </nz-spin>
           </nz-col>
-          <nz-col [nzSpan]="6">
+          <nz-col nzXs="24" nzSm="12" nzMd="6" nzLg="6" nzXl="6">
             <nz-spin [nzSpinning]="!(totalCount$ | async)">
               <nz-statistic 
                 [nzValue]="((totalCount$ | async)?.deaths | number: '1.0-2') || 'Cargando'" 
@@ -22,7 +22,7 @@
               </nz-statistic>
             </nz-spin>
           </nz-col>
-          <nz-col [nzSpan]="6">
+          <nz-col nzXs="24" nzSm="12" nzMd="6" nzLg="6" nzXl="6">
             <nz-spin [nzSpinning]="!(totalCount$ | async)">
               <nz-statistic 
                 [nzValue]="((totalCount$ | async)?.recovered | number: '1.0-2') || 'Cargando'" 
@@ -31,7 +31,7 @@
               </nz-statistic>
             </nz-spin>
           </nz-col>
-          <nz-col [nzSpan]="6">
+          <nz-col nzXs="24" nzSm="12" nzMd="6" nzLg="6" nzXl="6">
             <nz-spin [nzSpinning]="!(totalCount$ | async)">
               <nz-statistic 
                 [nzValue]="getRatio((totalCount$ | async)?.deaths, (totalCount$ | async)?.cases) | number: '1.0-2'" 
@@ -87,6 +87,7 @@
           </ng-template>
 
           <nz-table #smallTable 
+            nzSize="middle"
             [nzData]="(countriesCount$ | async)" 
             [nzFrontPagination]="false" 
             [nzBordered]="true" 
@@ -97,22 +98,22 @@
             <thead>
               <tr>
                 <th>País</th>
-                <th>Casos Confirmados</th>
+                <th>Casos</th>
                 <th>Recuperados</th>
                 <th>Muertes</th>
-                <th>Casos Confirmados Hoy</th>
+                <th [nzShowRowSelection]="false">Casos Hoy</th>
                 <th>Muertes Hoy</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let data of (smallTable.data | byCountry:filteredByCountry)" 
                 (click)="selectCountry(data)">
-                <td>{{ data.country }}</td>
-                <td>{{ data.cases }}</td>
-                <td>{{ data.recovered }}</td>
-                <td>{{ data.deaths }}</td>
-                <td>{{ data.todayCases }}</td>
-                <td>{{ data.todayDeaths }}</td>
+                <td>{{ processName(data) }}</td>
+                <td>{{ data.cases | number: '1.0-2' }}</td>
+                <td>{{ data.recovered | number: '1.0-2' }}</td>
+                <td>{{ data.deaths | number: '1.0-2' }}</td>
+                <td>{{ data.todayCases | number: '1.0-2' }}</td>
+                <td>{{ data.todayDeaths | number: '1.0-2' }}</td>
               </tr>
             </tbody>
           </nz-table>
@@ -120,5 +121,5 @@
       </nz-spin>
     </nz-content>
   </div>
-  <div nz-col nzXs="2" nzSm="4" nzMd="3" nzLg="3" nzXl="2"></div>
+  <div nz-col nzXs="0" nzSm="0" nzMd="3" nzLg="3" nzXl="2"></div>
 </div>

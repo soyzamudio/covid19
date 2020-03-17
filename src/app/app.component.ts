@@ -3,6 +3,7 @@ import { ApiService } from './api.service';
 import { Observable } from 'rxjs';
 import { All } from './all';
 import { Country } from './country';
+import { countries } from './countries-es';
 
 @Component({
   selector: 'app-root',
@@ -14,6 +15,7 @@ export class AppComponent {
   totalCount$: Observable<All> = this.api.getTotal();
   countriesCount$: Observable<Country[]> = this.api.getByCountries();
   selectedCountry: Country;
+  countriesEs = countries;
 
   constructor(public api: ApiService) {}
 
@@ -36,5 +38,9 @@ export class AppComponent {
     }
 
     this.selectedCountry = country;
+  }
+
+  processName(country: Country) {
+    return country.country = countries[country.country] || country.country;
   }
 }
