@@ -3,7 +3,7 @@
   <div nz-col nzXs="24" nzSm="24" nzMd="18" nzLg="18" nzXl="20">
     <nz-content>
       <div class="inner-content">
-        <h1>Casos Mundiales</h1>
+        <h1>El Mundo</h1>
         <nz-row [nzGutter]="16">
           <nz-col nzXs="24" nzSm="12" nzMd="6" nzLg="6" nzXl="6">
             <nz-spin [nzSpinning]="!(totalCount$ | async)">
@@ -46,7 +46,7 @@
     <nz-content>
       <nz-spin [nzSpinning]="!(countriesCount$ | async)">
         <div class="inner-content">
-          <h1>Casos Por País</h1>
+          <h1>Los Países</h1>
 
           <nz-row [nzGutter]="16" *ngIf="selectedCountry"
             class="cases-by-country">
