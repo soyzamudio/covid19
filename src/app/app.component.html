@@ -80,7 +80,7 @@
           </nz-row>
 
           <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Elige un País" [(ngModel)]="filteredByCountry">
-            <nz-option [nzLabel]="processName(item)" [nzValue]="processName(item)" *ngFor="let item of (countriesCount$ | async)"></nz-option>
+            <nz-option [nzLabel]="processName(item)" [nzValue]="processName(item)" *ngFor="let item of (countriesSorted$ | async)"></nz-option>
           </nz-select>
 
           <!-- <nz-input-group [nzSuffix]="suffixIconSearch">

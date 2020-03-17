@@ -3,7 +3,8 @@ import { ApiService } from './api.service';
 import { Observable } from 'rxjs';
 import { All } from './all';
 import { Country } from './country';
-import { countries } from './countries-es';
+import { countries as countriesEs } from './countries-es';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -14,22 +15,11 @@ export class AppComponent {
   filteredByCountry: string = null;
   totalCount$: Observable<All> = this.api.getTotal();
   countriesCount$: Observable<Country[]> = this.api.getByCountries();
+  countriesSorted$ = this.countriesCount$.pipe(map(countries => countries.sort((x,y) => x.country < y.country ? -1 : 1)));
   selectedCountry: Country;
-  countriesEs = countries;
+  countriesEs = countriesEs;
 
   constructor(public api: ApiService) {}
-
-  // onKey(event: any) {
-  //   if (event.target.value.length > 3) {
-  //     this.filteredByCountry = event.target.value;
-  //   } else {
-  //     this.filteredByCountry = null;
-  //   }
-  // }
-
-  // getChanged(event: any) {
-  //   this.filteredByCountry = event;
-  // }
 
   getRatio(deaths: number, cases: number): number {
     return (deaths / cases) * 100;
@@ -45,6 +35,6 @@ export class AppComponent {
   }
 
   processName(country: Country) {
-    return country.country = countries[country.country] || country.country;
+    return country.country = countriesEs[country.country] || country.country;
   }
 }
