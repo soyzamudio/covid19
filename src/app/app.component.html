@@ -45,10 +45,12 @@
     </nz-content>
     <nz-content>
       <nz-row [nzGutter]="16" class="inner-content">
-        <nz-row nzXL="24">
-          <nz-page-header-content>Ultima actualización: </nz-page-header-content>
-          <nz-page-header-content>{{ (totalCount$ | async)?.updated | date:'short' }}</nz-page-header-content>
-        </nz-row>
+        <nz-spin [nzSpinning]="!(totalCount$ | async)">
+          <nz-row nzXL="24" >
+            <nz-page-header-content>Ultima actualización: </nz-page-header-content>
+            <nz-page-header-content>{{ (totalCount$ | async)?.updated | date:'d/M/y, h:mm a' }}</nz-page-header-content>
+          </nz-row>
+        </nz-spin>
       </nz-row>
     </nz-content>
     <nz-content>
