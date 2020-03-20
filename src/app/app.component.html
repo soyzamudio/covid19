@@ -34,9 +34,9 @@
           <nz-col nzXs="24" nzSm="12" nzMd="6" nzLg="6" nzXl="6">
             <nz-spin [nzSpinning]="!(totalCount$ | async)">
               <nz-statistic 
-                [nzValue]="getRatio((totalCount$ | async)?.deaths, (totalCount$ | async)?.cases) | number: '1.0-2'" 
+                [nzValue]="(getRatio((totalCount$ | async)?.deaths, (totalCount$ | async)?.cases) | number: '1.0-2') || 'Cargando'" 
                 nzTitle="Tasa de mortalidad"
-                nzSuffix="%">
+                [nzSuffix]="(getRatio((totalCount$ | async)?.deaths, (totalCount$ | async)?.cases)) ? '%' : ''">
               </nz-statistic>
             </nz-spin>
           </nz-col>
@@ -82,13 +82,6 @@
           <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Elige un País" [(ngModel)]="filteredByCountry">
             <nz-option [nzLabel]="processName(item)" [nzValue]="processName(item)" *ngFor="let item of (countriesSorted$ | async)"></nz-option>
           </nz-select>
-
-          <!-- <nz-input-group [nzSuffix]="suffixIconSearch">
-            <input (keyup)="onKey($event)" type="text" nz-input placeholder="Buscar por país" />
-          </nz-input-group>
-          <ng-template #suffixIconSearch>
-            <i nz-icon nzType="search"></i>
-          </ng-template> -->
 
           <nz-table #smallTable 
             nzSize="middle"
