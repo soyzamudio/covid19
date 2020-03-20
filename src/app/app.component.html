@@ -44,6 +44,14 @@
       </div>
     </nz-content>
     <nz-content>
+      <nz-row [nzGutter]="16" class="inner-content">
+        <nz-row nzXL="24">
+          <nz-page-header-content>Ultima actualización: </nz-page-header-content>
+          <nz-page-header-content>{{ (totalCount$ | async)?.updated | date:'short' }}</nz-page-header-content>
+        </nz-row>
+      </nz-row>
+    </nz-content>
+    <nz-content>
       <nz-spin [nzSpinning]="!(countriesCount$ | async)">
         <div class="inner-content">
           <h1>Los Países</h1>
