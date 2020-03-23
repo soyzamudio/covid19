@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, AfterViewChecked } from '@angular/core';
 import { ActivatedRoute, Data } from '@angular/router';
 import { countries } from '../countries-es';
 
@@ -7,11 +7,15 @@ import { countries } from '../countries-es';
   templateUrl: './country.component.html',
   styleUrls: ['./country.component.scss']
 })
-export class CountryComponent {
+export class CountryComponent implements AfterViewChecked{
   country: Data = this.route.snapshot.data
 
   constructor(private route: ActivatedRoute) {
     console.log(this.country);
+  }
+
+  ngAfterViewChecked() {
+    window.scrollTo(0, 0);
   }
 
   processName(country: string) {
