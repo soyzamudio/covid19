@@ -1,0 +1,102 @@
+<div nz-row>
+    <div nz-col nzXs="0" nzSm="0" nzMd="3" nzLg="3" nzXl="2"></div>
+    <div nz-col nzXs="24" nzSm="24" nzMd="18" nzLg="18" nzXl="20">
+      <nz-content>
+        <div class="inner-content">
+          <nz-page-header>
+            <nz-page-header-title>El Mundo</nz-page-header-title>
+          </nz-page-header>
+          <nz-row [nzGutter]="16">
+            <nz-col nzXs="24" nzSm="12" nzMd="6" nzLg="6" nzXl="6">
+              <nz-spin [nzSpinning]="!(totalCount$ | async)">
+                <nz-statistic 
+                  [nzValue]="((totalCount$ | async)?.cases | number: '1.0-2') || 'Cargando'" 
+                  nzTitle="Total de casos">
+                </nz-statistic>
+              </nz-spin>
+            </nz-col>
+            <nz-col nzXs="24" nzSm="12" nzMd="6" nzLg="6" nzXl="6">
+              <nz-spin [nzSpinning]="!(totalCount$ | async)">
+                <nz-statistic 
+                  [nzValue]="((totalCount$ | async)?.deaths | number: '1.0-2') || 'Cargando'" 
+                  nzTitle="Total de muertes"
+                  [nzValueStyle]="{ color: '#CF1322' }">
+                </nz-statistic>
+              </nz-spin>
+            </nz-col>
+            <nz-col nzXs="24" nzSm="12" nzMd="6" nzLg="6" nzXl="6">
+              <nz-spin [nzSpinning]="!(totalCount$ | async)">
+                <nz-statistic 
+                  [nzValue]="((totalCount$ | async)?.recovered | number: '1.0-2') || 'Cargando'" 
+                  nzTitle="Total de recuperados"
+                  [nzValueStyle]="{ color: '#3F8600' }">
+                </nz-statistic>
+              </nz-spin>
+            </nz-col>
+            <nz-col nzXs="24" nzSm="12" nzMd="6" nzLg="6" nzXl="6">
+              <nz-spin [nzSpinning]="!(totalCount$ | async)">
+                <nz-statistic 
+                  [nzValue]="(getRatio((totalCount$ | async)?.deaths, (totalCount$ | async)?.cases) | number: '1.0-2') || 'Cargando'" 
+                  nzTitle="Tasa de mortalidad"
+                  [nzSuffix]="(getRatio((totalCount$ | async)?.deaths, (totalCount$ | async)?.cases)) ? '%' : ''">
+                </nz-statistic>
+              </nz-spin>
+            </nz-col>
+          </nz-row>
+        </div>
+      </nz-content>
+      <nz-content>
+        <nz-row [nzGutter]="16" class="inner-content source">
+          <nz-spin [nzSpinning]="!(totalCount$ | async)">
+            <nz-row nzXL="24" >
+              <nz-page-header-content>Ultima actualización: {{ (totalCount$ | async)?.updated | date:'d/M/y, h:mm a' }}</nz-page-header-content>
+            </nz-row>
+            <nz-row nzXL="24" >
+              <nz-page-header-content>Fuente: https://www.worldometers.info/coronavirus/</nz-page-header-content>
+            </nz-row>
+          </nz-spin>
+        </nz-row>
+      </nz-content>
+      <nz-content>
+        <nz-spin [nzSpinning]="!(countriesCount$ | async)">
+          <div class="inner-content">
+            <nz-page-header>
+              <nz-page-header-title>Los Paises</nz-page-header-title>
+              <nz-page-header-subtitle>(Haz click en el país para mas información)</nz-page-header-subtitle>
+            </nz-page-header>
+  
+            <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Elige un País" [(ngModel)]="filteredByCountry">
+              <nz-option [nzLabel]="processName(item)" [nzValue]="processName(item)" *ngFor="let item of (countriesSorted$ | async)"></nz-option>
+            </nz-select>
+  
+            <nz-table #smallTable 
+              nzSize="small"
+              [nzData]="(countriesCount$ | async)" 
+              [nzFrontPagination]="false" 
+              [nzBordered]="true" 
+              [nzLoadingDelay]="500"
+              [nzSimple]="true"
+              [nzPageSize]="(countriesCount$ | async)?.length"
+              [nzScroll]="{ y: '500px' }">
+              <thead>
+                <tr>
+                  <th nzWidth="33%">País</th>
+                  <th nzWidth="33%">Casos <strong><i>(Hoy)</i></strong></th>
+                  <th nzWidth="33%">Muertes <strong><i>(Hoy)</i></strong></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let data of (smallTable.data | byCountry:filteredByCountry)"
+                    [routerLink]="['/country', data.country.toLowerCase()]">
+                  <td>{{ processName(data) }}</td>
+                  <td>{{ data.cases | number: '1.0-2' }} <strong><i>({{ data.todayCases | number: '1.0-2' }})</i></strong></td>
+                  <td>{{ data.deaths | number: '1.0-2' }} <strong><i>({{ data.todayDeaths | number: '1.0-2' }})</i></strong></td>
+                </tr>
+              </tbody>
+            </nz-table>
+          </div>
+        </nz-spin>
+      </nz-content>
+    </div>
+    <div nz-col nzXs="0" nzSm="0" nzMd="3" nzLg="3" nzXl="2"></div>
+  </div>

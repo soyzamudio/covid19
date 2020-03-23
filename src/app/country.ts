@@ -1,5 +1,6 @@
 export interface Country {
     country?: string;
+    countryES?: string;
     cases?: number
     todayCases?: number
     deaths?: number
