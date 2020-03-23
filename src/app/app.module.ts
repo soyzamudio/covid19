@@ -4,7 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { ApiService } from './api.service';
-import { NgZorroAntdModule, NZ_I18N, en_US } from 'ng-zorro-antd';
+import { NgZorroAntdModule, NZ_I18N, en_US, NzAvatarModule } from 'ng-zorro-antd';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzTimelineModule } from 'ng-zorro-antd/timeline';
 import { FormsModule } from '@angular/forms';
@@ -41,6 +41,7 @@ registerLocaleData(en);
     NzLayoutModule,
     NzSelectModule,
     NzTimelineModule,
+    NzAvatarModule,
     NzMenuModule,
     AppRoutingModule
   ],

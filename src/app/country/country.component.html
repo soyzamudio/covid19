@@ -4,7 +4,14 @@
       <nz-content>
         <div class="inner-content">
           <nz-page-header>
-            <nz-page-header-title>{{ processName(country.countryData?.timeline.standardizedCountryName) }}</nz-page-header-title>
+            <nz-page-header-title>
+              <nz-avatar
+                nzShape="square" 
+                nzIcon="user"
+                [nzSrc]="country.countryData?.data.countryInfo.flag">
+              </nz-avatar>
+              {{ processName(country.countryData?.timeline.standardizedCountryName) }}
+            </nz-page-header-title>
           </nz-page-header>
 
           <nz-row [nzGutter]="[6, 6]" class="cases-by-country">
