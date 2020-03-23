@@ -4,13 +4,13 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --prod --output-path docs --base-href /covid19/ --cname",
+    "build": "ng build --prod --output-path docs --base-href /covid19/",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "copy:index": "cp docs/index.html docs/404.html",
     "generate:CNAME": "touch docs/CNAME",
-    "build:prod": "ng build && npm run copy:index && npm run generate:CNAME"
+    "build:prod": "npm run build && npm run copy:index && npm run generate:CNAME"
   },
   "private": true,
   "dependencies": {
