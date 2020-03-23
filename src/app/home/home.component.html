@@ -6,8 +6,8 @@
           <nz-page-header>
             <nz-page-header-title>El Mundo</nz-page-header-title>
           </nz-page-header>
-          <nz-row [nzGutter]="16">
-            <nz-col nzXs="24" nzSm="12" nzMd="6" nzLg="6" nzXl="6">
+          <nz-row [nzGutter]="[6,6]">
+            <nz-col nzXs="12" nzSm="12" nzMd="6" nzLg="6" nzXl="6">
               <nz-spin [nzSpinning]="!(totalCount$ | async)">
                 <nz-statistic 
                   [nzValue]="((totalCount$ | async)?.cases | number: '1.0-2') || 'Cargando'" 
@@ -15,7 +15,7 @@
                 </nz-statistic>
               </nz-spin>
             </nz-col>
-            <nz-col nzXs="24" nzSm="12" nzMd="6" nzLg="6" nzXl="6">
+            <nz-col nzXs="12" nzSm="12" nzMd="6" nzLg="6" nzXl="6">
               <nz-spin [nzSpinning]="!(totalCount$ | async)">
                 <nz-statistic 
                   [nzValue]="((totalCount$ | async)?.deaths | number: '1.0-2') || 'Cargando'" 
@@ -24,7 +24,7 @@
                 </nz-statistic>
               </nz-spin>
             </nz-col>
-            <nz-col nzXs="24" nzSm="12" nzMd="6" nzLg="6" nzXl="6">
+            <nz-col nzXs="12" nzSm="12" nzMd="6" nzLg="6" nzXl="6">
               <nz-spin [nzSpinning]="!(totalCount$ | async)">
                 <nz-statistic 
                   [nzValue]="((totalCount$ | async)?.recovered | number: '1.0-2') || 'Cargando'" 
@@ -33,7 +33,7 @@
                 </nz-statistic>
               </nz-spin>
             </nz-col>
-            <nz-col nzXs="24" nzSm="12" nzMd="6" nzLg="6" nzXl="6">
+            <nz-col nzXs="12" nzSm="12" nzMd="6" nzLg="6" nzXl="6">
               <nz-spin [nzSpinning]="!(totalCount$ | async)">
                 <nz-statistic 
                   [nzValue]="(getRatio((totalCount$ | async)?.deaths, (totalCount$ | async)?.cases) | number: '1.0-2') || 'Cargando'" 
