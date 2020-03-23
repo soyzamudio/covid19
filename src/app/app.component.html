@@ -44,11 +44,14 @@
       </div>
     </nz-content>
     <nz-content>
-      <nz-row [nzGutter]="16" class="inner-content">
+      <nz-row [nzGutter]="16" class="inner-content source">
         <nz-spin [nzSpinning]="!(totalCount$ | async)">
           <nz-row nzXL="24" >
             <nz-page-header-content>Ultima actualización: </nz-page-header-content>
             <nz-page-header-content>{{ (totalCount$ | async)?.updated | date:'d/M/y, h:mm a' }}</nz-page-header-content>
+          </nz-row>
+          <nz-row nzXL="24" >
+            <nz-page-header-content>Fuente: https://www.worldometers.info/coronavirus/</nz-page-header-content>
           </nz-row>
         </nz-spin>
       </nz-row>
@@ -94,33 +97,27 @@
           </nz-select>
 
           <nz-table #smallTable 
-            nzSize="middle"
+            nzSize="small"
             [nzData]="(countriesCount$ | async)" 
             [nzFrontPagination]="false" 
             [nzBordered]="true" 
-            [nzLoadingIndicator]="true" 
             [nzLoadingDelay]="500"
             [nzSimple]="true"
-            [nzShowTotal]="true">
+            [nzPageSize]="(countriesCount$ | async).length"
+            [nzScroll]="{ y: '500px' }">
             <thead>
               <tr>
-                <th>País</th>
-                <th>Casos</th>
-                <th>Recuperados</th>
-                <th>Muertes</th>
-                <th [nzShowRowSelection]="false">Casos Hoy</th>
-                <th>Muertes Hoy</th>
+                <th nzWidth="33%">País</th>
+                <th nzWidth="33%">Casos <strong><i>(Hoy)</i></strong></th>
+                <th nzWidth="33%">Muertes <strong><i>(Hoy)</i></strong></th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let data of (smallTable.data | byCountry:filteredByCountry)" 
                 (click)="selectCountry(data)">
                 <td>{{ processName(data) }}</td>
-                <td>{{ data.cases | number: '1.0-2' }}</td>
-                <td>{{ data.recovered | number: '1.0-2' }}</td>
-                <td>{{ data.deaths | number: '1.0-2' }}</td>
-                <td>{{ data.todayCases | number: '1.0-2' }}</td>
-                <td>{{ data.todayDeaths | number: '1.0-2' }}</td>
+                <td>{{ data.cases | number: '1.0-2' }} <strong><i>({{ data.todayCases | number: '1.0-2' }})</i></strong></td>
+                <td>{{ data.deaths | number: '1.0-2' }} <strong><i>({{ data.todayDeaths | number: '1.0-2' }})</i></strong></td>
               </tr>
             </tbody>
           </nz-table>
