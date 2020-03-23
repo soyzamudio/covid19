@@ -38,7 +38,7 @@
                 <nz-statistic 
                   [nzValue]="(getRatio((totalCount$ | async)?.deaths, (totalCount$ | async)?.cases) | number: '1.0-2') || 'Cargando'" 
                   nzTitle="Tasa de mortalidad"
-                  [nzSuffix]="(getRatio((totalCount$ | async)?.deaths, (totalCount$ | async)?.cases)) ? '%' : ''">
+                  nzSuffix="%">
                 </nz-statistic>
               </nz-spin>
             </nz-col>
