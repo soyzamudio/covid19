@@ -19,13 +19,15 @@ export class CountryResolver implements Resolve<any> {
     const data = this.api.getCountryData(id);
     const timeline = this.api.getCountryTimeline(id).pipe(map(country => {
       const timeline = Object.keys(country.timeline.cases).map(date => {
-        return {
-          date: new Date(date).getTime(),
-          cases: country.timeline.cases[date],
-          deaths: country.timeline.deaths[date],
-          recovered: country.timeline.recovered[date],
-        };
-      });
+        if (country.timeline.cases[date] > 0) {
+          return {
+            date: new Date(date).getTime(),
+            cases: country.timeline.cases[date],
+            deaths: country.timeline.deaths[date],
+            recovered: country.timeline.recovered[date],
+          };
+        }
+      }).filter(el => el != null);
       
       return {
         standardizedCountryName: country.standardizedCountryName,
