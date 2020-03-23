@@ -49,6 +49,8 @@
             <nz-page-header-title>Cronograma</nz-page-header-title>
           </nz-page-header>
 
+          <nz-skeleton *ngIf="!country.countryData?.timeline" [nzActive]="true"></nz-skeleton>
+
           <nz-timeline>
             <nz-timeline-item *ngFor="let data of country.countryData?.timeline.timeline.reverse()">
                 <div><strong>Fecha:</strong> {{data.date | date:'dd/MM/y'}}</div>

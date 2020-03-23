@@ -4,7 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { ApiService } from './api.service';
-import { NgZorroAntdModule, NZ_I18N, en_US, NzTimelineComponent, NzTimelineItemComponent, NzTimelineModule } from 'ng-zorro-antd';
+import { NgZorroAntdModule, NZ_I18N, en_US, NzTimelineComponent, NzTimelineItemComponent, NzTimelineModule, NzSkeletonModule } from 'ng-zorro-antd';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { registerLocaleData } from '@angular/common';
@@ -39,6 +39,7 @@ registerLocaleData(en);
     NzLayoutModule,
     NzSelectModule,
     NzTimelineModule,
+    NzSkeletonModule,
     AppRoutingModule
   ],
   providers: [ApiService, { provide: NZ_I18N, useValue: en_US }, CountryResolver],

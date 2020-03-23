@@ -10,9 +10,7 @@ import { countries } from '../countries-es';
 export class CountryComponent implements AfterViewChecked{
   country: Data = this.route.snapshot.data
 
-  constructor(private route: ActivatedRoute) {
-    console.log(this.country);
-  }
+  constructor(private route: ActivatedRoute) {}
 
   ngAfterViewChecked() {
     window.scrollTo(0, 0);
