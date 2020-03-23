@@ -49,15 +49,17 @@
             <nz-page-header-title>Cronograma</nz-page-header-title>
           </nz-page-header>
 
-          <nz-skeleton *ngIf="!country.countryData?.timeline" [nzActive]="true"></nz-skeleton>
-
-          <nz-timeline>
-            <nz-timeline-item *ngFor="let data of country.countryData?.timeline.timeline.reverse()">
+          <nz-timeline nzMode="alternate">
+            <nz-timeline-item 
+              *ngFor="let data of country.countryData?.timeline.timeline.reverse()"
+              [nzDot]="dotTemplate">
                 <div><strong>Fecha:</strong> {{data.date | date:'dd/MM/y'}}</div>
                 <div><strong>Casos:</strong> {{data.cases | number: '1.0-2'}}</div>
                 <div><strong>Muertes:</strong> {{data.deaths | number: '1.0-2'}}</div>
-                <div></div>
             </nz-timeline-item>
+            <ng-template #dotTemplate>
+              <i nz-icon nzType="clock-circle-o" style="font-size: 14px;"></i>
+            </ng-template>
           </nz-timeline>
         </div>
       </nz-content>

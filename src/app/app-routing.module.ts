@@ -16,7 +16,8 @@ const routes: Routes = [
     resolve: {
       countryData: CountryResolver
     }
-  }
+  },
+  { path: '**', redirectTo: '', pathMatch: 'full' },
 ]
 
 @NgModule({
