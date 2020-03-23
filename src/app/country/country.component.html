@@ -50,13 +50,13 @@
           </nz-page-header>
 
           <nz-timeline>
-            <nz-timeline-item *ngFor="let data of country.countryData?.timeline.timeline.cases | keyvalue">
-                <div><strong>Fecha:</strong> {{data.key | date:'dd/MM/yyyy'}}</div>
-                <div><strong>Casos:</strong> {{data.value | number: '1.0-2'}}</div>
-                <div><strong>Muertes:</strong> {{country.countryData?.timeline.timeline.deaths[data.key] | number: '1.0-2'}}</div>
+            <nz-timeline-item *ngFor="let data of country.countryData?.timeline.timeline.reverse()">
+                <div><strong>Fecha:</strong> {{data.date | date:'dd/MM/y'}}</div>
+                <div><strong>Casos:</strong> {{data.cases | number: '1.0-2'}}</div>
+                <div><strong>Muertes:</strong> {{data.deaths | number: '1.0-2'}}</div>
                 <div></div>
             </nz-timeline-item>
-        </nz-timeline>
+          </nz-timeline>
         </div>
       </nz-content>
     </div>

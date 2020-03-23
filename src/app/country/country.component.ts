@@ -10,7 +10,9 @@ import { countries } from '../countries-es';
 export class CountryComponent {
   country: Data = this.route.snapshot.data
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute) {
+    console.log(this.country);
+  }
 
   processName(country: string) {
     return countries[country.charAt(0).toUpperCase() + country.substring(1)] || country;
