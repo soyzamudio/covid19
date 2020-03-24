@@ -78,11 +78,26 @@
               [nzSimple]="true"
               [nzPageSize]="(countriesCount$ | async)?.length"
               [nzScroll]="{ y: '500px' }">
-              <thead>
+              <thead (nzSortChange)="sort($event)" nzSingleSort>
                 <tr>
-                  <th nzWidth="33%">País</th>
-                  <th nzWidth="33%">Casos <strong><i>(Hoy)</i></strong></th>
-                  <th nzWidth="33%">Muertes <strong><i>(Hoy)</i></strong></th>
+                  <th 
+                    nzWidth="33%"
+                    nzShowSort
+                    nzSortKey="country">
+                    País
+                  </th>
+                  <th 
+                    nzWidth="33%"
+                    nzShowSort
+                    nzSortKey="cases">
+                    Casos <strong><i>(Hoy)</i></strong>
+                  </th>
+                  <th 
+                    nzWidth="33%"
+                    nzShowSort
+                    nzSortKey="deaths">
+                    Muertes <strong><i>(Hoy)</i></strong>
+                  </th>
                 </tr>
               </thead>
               <tbody>

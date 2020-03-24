@@ -17,6 +17,9 @@ export class HomeComponent implements AfterViewChecked {
   countriesCount$: Observable<Country[]> = this.api.getByCountries();
   countriesSorted$ = this.countriesCount$.pipe(map(countries => countries.sort((x,y) => x.country < y.country ? -1 : 1)));
   countriesEs = countriesEs;
+  sortName = null;
+  sortValue = null;
+  sorted = false;
 
   constructor(public api: ApiService) {}
 
@@ -31,5 +34,21 @@ export class HomeComponent implements AfterViewChecked {
   processName(country: Country) {
     country.countryES = countriesEs[country.country];
     return country.countryES || country.country;
+  }
+
+  sort(sort: { key: string; value: string }) {
+    if (this.sorted && this.sortName === sort.key) {
+      this.countriesCount$ =this.countriesCount$.pipe(map(countries => countries.reverse()));
+    } else {
+      this.sortName = sort.key;
+      this.sortValue = sort.value;
+
+      this.search();
+      this.sorted = true;
+    }
+  }
+
+  search() {
+    this.countriesCount$ = this.api.getByCountries(this.sortName).pipe(map(countries => countries.reverse()));
   }
 }

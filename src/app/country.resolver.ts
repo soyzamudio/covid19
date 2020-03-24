@@ -24,16 +24,17 @@ export class CountryResolver implements Resolve<any> {
             date: new Date(date).getTime(),
             cases: country.timeline.cases[date],
             deaths: country.timeline.deaths[date],
-            recovered: country.timeline.recovered[date],
           };
         }
       }).filter(el => el != null);
       
       return {
-        standardizedCountryName: country.standardizedCountryName,
+        country: country.country,
         timeline,
       };
     }));
+
+    console.log()
 
     let join = forkJoin(data, timeline).pipe(map((allResponses) => {
       return {
