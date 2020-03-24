@@ -37,18 +37,28 @@ export class HomeComponent implements AfterViewChecked {
   }
 
   sort(sort: { key: string; value: string }) {
-    if (this.sorted && this.sortName === sort.key) {
+    this.sortValue = sort.value;
+
+    if (this.sorted && this.sortName === sort.key && this.sortValue) {
       this.countriesCount$ =this.countriesCount$.pipe(map(countries => countries.reverse()));
-    } else {
+    } else if (!this.sorted) {
       this.sortName = sort.key;
       this.sortValue = sort.value;
 
       this.search();
       this.sorted = true;
+    } else {
+      this.sortName = null;
+      this.search();
+      this.sorted = false;
     }
   }
 
   search() {
-    this.countriesCount$ = this.api.getByCountries(this.sortName).pipe(map(countries => countries.reverse()));
+    if (this.sortValue) {
+      this.countriesCount$ = this.api.getByCountries(this.sortName).pipe(map(countries => countries.reverse()));
+    } else {
+      this.countriesCount$ = this.api.getByCountries(this.sortName);
+    }
   }
 }
