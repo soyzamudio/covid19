@@ -17,7 +17,7 @@ export class ApiService {
   }
 
   getByCountries(sort?: string): Observable<Country[]> {
-    let params: HttpParams;
+    let params: HttpParams = new HttpParams().set('sort', 'cases');
 
     if (sort) {
       params = new HttpParams().set('sort', sort);
