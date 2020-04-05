@@ -52,13 +52,23 @@
             </nz-col>
           </nz-row>
 
+          <nz-content>
+            <nz-row [nzGutter]="16" class="inner-content source">
+              <nz-spin [nzSpinning]="!country.countryData?.data">
+                <nz-row nzXL="24" >
+                  <nz-page-header-content>Ultima actualización: {{ country.countryData?.data?.updated | date:'d/M/y, h:mm a' }}</nz-page-header-content>
+                </nz-row>
+              </nz-spin>
+            </nz-row>
+          </nz-content>
+
           <nz-page-header>
             <nz-page-header-title>Cronograma</nz-page-header-title>
           </nz-page-header>
 
           <nz-timeline nzMode="alternate">
             <nz-timeline-item 
-              *ngFor="let data of country.countryData?.timeline.timeline.reverse()"
+              *ngFor="let data of country.countryData?.timeline.timeline"
               [nzDot]="dotTemplate">
                 <div><strong>Fecha:</strong> {{data.date | date:'dd/MM/y'}}</div>
                 <div><strong>Casos:</strong> {{data.cases | number: '1.0-2'}}</div>

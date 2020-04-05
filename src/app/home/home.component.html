@@ -81,37 +81,41 @@
               <thead (nzSortChange)="sort($event)" nzSingleSort>
                 <tr>
                   <th 
-                    nzWidth="33%"
+                    nzWidth="25%"
                     nzShowSort
                     nzSortKey="country">
                     País
                   </th>
                   <th 
-                    nzWidth="33%"
+                    nzWidth="25%"
                     nzShowSort
                     nzSortKey="cases">
                     Casos <strong><i>(Hoy)</i></strong>
                   </th>
                   <th 
-                    nzWidth="33%"
+                    nzWidth="25%"
                     nzShowSort
                     nzSortKey="deaths">
                     Muertes <strong><i>(Hoy)</i></strong>
+                  </th>
+                  <th nzWidth="25%">
+                    Actualizado
                   </th>
                 </tr>
               </thead>
               <tbody>
                 <tr *ngFor="let data of (smallTable.data | byCountry:filteredByCountry)"
                     [routerLink]="['/country', data.country.toLowerCase()]">
-                  <td>
+                  <td nzWidth="25%">
                     <nz-avatar
                       nzShape="square" 
                       nzIcon="user" 
                       [nzSrc]="data.countryInfo.flag">
                     </nz-avatar>{{ processName(data) }}
                   </td>
-                  <td>{{ data.cases | number: '1.0-2' }} <strong><i>({{ data.todayCases | number: '1.0-2' }})</i></strong></td>
-                  <td>{{ data.deaths | number: '1.0-2' }} <strong><i>({{ data.todayDeaths | number: '1.0-2' }})</i></strong></td>
+                  <td nzWidth="25%">{{ data.cases | number: '1.0-2' }} <strong><i>({{ data.todayCases | number: '1.0-2' }})</i></strong></td>
+                  <td nzWidth="25%">{{ data.deaths | number: '1.0-2' }} <strong><i>({{ data.todayDeaths | number: '1.0-2' }})</i></strong></td>
+                  <td nzWidth="25%">{{ data.updated | date:'d/M/y, h:mm a' }}</td>
                 </tr>
               </tbody>
             </nz-table>
