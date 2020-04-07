@@ -77,7 +77,7 @@
               [nzLoadingDelay]="500"
               [nzSimple]="true"
               [nzPageSize]="(countriesCount$ | async)?.length"
-              [nzScroll]="{ y: '500px' }">
+              [nzScroll]="{ y: '450px' }">
               <thead (nzSortChange)="sort($event)" nzSingleSort>
                 <tr>
                   <th 
@@ -99,7 +99,7 @@
                     Muertes <strong><i>(Hoy)</i></strong>
                   </th>
                   <th nzWidth="25%">
-                    Actualizado
+                    Pruebas x Millon
                   </th>
                 </tr>
               </thead>
@@ -115,7 +115,7 @@
                   </td>
                   <td nzWidth="25%">{{ data.cases | number: '1.0-2' }} <strong><i>({{ data.todayCases | number: '1.0-2' }})</i></strong></td>
                   <td nzWidth="25%">{{ data.deaths | number: '1.0-2' }} <strong><i>({{ data.todayDeaths | number: '1.0-2' }})</i></strong></td>
-                  <td nzWidth="25%">{{ data.updated | date:'d/M/y, h:mm a' }}</td>
+                  <td nzWidth="25%">{{ data.testsPerOneMillion | number: '1.0-2' }}</td>
                 </tr>
               </tbody>
             </nz-table>
