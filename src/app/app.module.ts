@@ -20,6 +20,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { CountryComponent } from './country/country.component';
 import { HomeComponent } from './home/home.component';
 import { CountryResolver } from './country.resolver';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 registerLocaleData(en);
 
@@ -43,7 +44,8 @@ registerLocaleData(en);
     NzTimelineModule,
     NzAvatarModule,
     NzMenuModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NgxChartsModule
   ],
   providers: [ApiService, { provide: NZ_I18N, useValue: en_US }, CountryResolver],
   bootstrap: [AppComponent]

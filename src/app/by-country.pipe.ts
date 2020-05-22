@@ -7,12 +7,12 @@ import { countries } from './countries-es';
 })
 export class ByCountryPipe implements PipeTransform {
 
-  transform(value: Country[], ...args: string[]): unknown {
+  transform(value: any[], ...args: string[]): unknown {
     if (!args[0]) {
       return value;
     }
     
-    return value.filter(country => country.country.toLowerCase() === args[0].toLowerCase());
+    return value.filter(country => country.Country.toLowerCase() === args[0].toLowerCase());
   }
 
 }

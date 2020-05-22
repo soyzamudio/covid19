@@ -13,7 +13,7 @@ export class ApiService {
   constructor(private http: HttpClient) { }
 
   getTotal(): Observable<All> {
-    return this.http.get(`${env.baseUrl}/v2/all`)
+    return this.http.get(`https://api.covid19api.com/summary`)
   }
 
   getByCountries(sort?: string): Observable<Country[]> {
@@ -23,11 +23,12 @@ export class ApiService {
       params = new HttpParams().set('sort', sort);
     }
 
-    return this.http.get(`${env.baseUrl}/v2/countries`, { params }) as Observable<Country[]>
+    return this.http.get(`${env.baseUrl}/v2/countries`, { params }) as Observable<Country[]>;
   }
 
   getCountryTimeline(country: string): Observable<any> {
-    return this.http.get(`${env.baseUrl}/v2/historical/${country}`)
+    // mexico
+    return this.http.get(`https://api.covid19api.com/total/dayone/country/${country}`);
   }
 
   getCountryData(country: string): Observable<any> {

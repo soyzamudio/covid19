@@ -16,33 +16,24 @@ export class CountryResolver implements Resolve<any> {
     state: RouterStateSnapshot
   ): Observable<any>|Promise<any>|any {
     const id = route.paramMap.get('id');
-    const data = this.api.getCountryData(id);
-    const timeline = this.api.getCountryTimeline(id).pipe(map(country => {
-      const timeline = Object.keys(country.timeline.cases).map(date => {
-        if (country.timeline.cases[date] > 0) {
-          return {
-            date: new Date(date).getTime(),
-            cases: country.timeline.cases[date],
-            deaths: country.timeline.deaths[date],
-          };
-        }
-      }).filter(el => el != null);
-      
+    // const data = this.api.getCountryData(id) || null;
+    const data = this.api.getCountryTimeline(id).pipe(map(country => {
+      const historical = country.map(date => {
+        return {
+          date: date.Date,
+          cases: date.Confirmed,
+          deaths: date.Deaths,
+        };
+      });
+
       return {
-        country: country.country,
-        timeline,
+        data: country[country.length - 1],
+        historical,
       };
     }));
 
-    console.log()
+    console.log(data);
 
-    let join = forkJoin(data, timeline).pipe(map((allResponses) => {
-      return {
-        data: allResponses[0],
-        timeline: allResponses[1],
-      };
-    }));
-
-    return join;
+    return data;
   }
 }

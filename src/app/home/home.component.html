@@ -8,35 +8,35 @@
           </nz-page-header>
           <nz-row [nzGutter]="[6,6]">
             <nz-col nzXs="12" nzSm="12" nzMd="6" nzLg="6" nzXl="6">
-              <nz-spin [nzSpinning]="!(totalCount$ | async)">
+              <nz-spin [nzSpinning]="!summary$">
                 <nz-statistic 
-                  [nzValue]="((totalCount$ | async)?.cases | number: '1.0-2') || 'Cargando'" 
+                  [nzValue]="(summary$?.Global.TotalConfirmed | number: '1.0-2') || 'Cargando'" 
                   nzTitle="Total de casos">
                 </nz-statistic>
               </nz-spin>
             </nz-col>
             <nz-col nzXs="12" nzSm="12" nzMd="6" nzLg="6" nzXl="6">
-              <nz-spin [nzSpinning]="!(totalCount$ | async)">
+              <nz-spin [nzSpinning]="!summary$">
                 <nz-statistic 
-                  [nzValue]="((totalCount$ | async)?.deaths | number: '1.0-2') || 'Cargando'" 
+                  [nzValue]="(summary$?.Global.TotalDeaths | number: '1.0-2') || 'Cargando'" 
                   nzTitle="Total de muertes"
                   [nzValueStyle]="{ color: '#CF1322' }">
                 </nz-statistic>
               </nz-spin>
             </nz-col>
             <nz-col nzXs="12" nzSm="12" nzMd="6" nzLg="6" nzXl="6">
-              <nz-spin [nzSpinning]="!(totalCount$ | async)">
+              <nz-spin [nzSpinning]="!summary$">
                 <nz-statistic 
-                  [nzValue]="((totalCount$ | async)?.recovered | number: '1.0-2') || 'Cargando'" 
+                  [nzValue]="(summary$?.Global.TotalRecovered | number: '1.0-2') || 'Cargando'" 
                   nzTitle="Total de recuperados"
                   [nzValueStyle]="{ color: '#3F8600' }">
                 </nz-statistic>
               </nz-spin>
             </nz-col>
             <nz-col nzXs="12" nzSm="12" nzMd="6" nzLg="6" nzXl="6">
-              <nz-spin [nzSpinning]="!(totalCount$ | async)">
+              <nz-spin [nzSpinning]="!summary$">
                 <nz-statistic 
-                  [nzValue]="(getRatio((totalCount$ | async)?.deaths, (totalCount$ | async)?.cases) | number: '1.0-2') || 'Cargando'" 
+                  [nzValue]="(getRatio(summary$?.Global.TotalDeaths, summary$?.Global.TotalConfirmed) | number: '1.0-2') || 'Cargando'" 
                   nzTitle="Tasa de mortalidad"
                   nzSuffix="%">
                 </nz-statistic>
@@ -47,9 +47,9 @@
       </nz-content>
       <nz-content>
         <nz-row [nzGutter]="16" class="inner-content source">
-          <nz-spin [nzSpinning]="!(totalCount$ | async)">
+          <nz-spin [nzSpinning]="!summary$">
             <nz-row nzXL="24" >
-              <nz-page-header-content>Ultima actualización: {{ (totalCount$ | async)?.updated | date:'d/M/y, h:mm a' }}</nz-page-header-content>
+              <nz-page-header-content>Ultima actualización: {{ summary$?.Date | date:'d/M/y, h:mm a' }}</nz-page-header-content>
             </nz-row>
             <nz-row nzXL="24" >
               <nz-page-header-content>Fuente: https://www.worldometers.info/coronavirus/</nz-page-header-content>
@@ -58,7 +58,7 @@
         </nz-row>
       </nz-content>
       <nz-content>
-        <nz-spin [nzSpinning]="!(countriesCount$ | async)">
+        <nz-spin [nzSpinning]="!summary$">
           <div class="inner-content">
             <nz-page-header>
               <nz-page-header-title>Los Paises</nz-page-header-title>
@@ -66,17 +66,17 @@
             </nz-page-header>
   
             <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Elige un País" [(ngModel)]="filteredByCountry">
-              <nz-option [nzLabel]="processName(item)" [nzValue]="processName(item)" *ngFor="let item of (countriesSorted$ | async)"></nz-option>
+              <nz-option [nzLabel]="processName(item)" [nzValue]="processName(item)" *ngFor="let item of summary$?.Countries"></nz-option>
             </nz-select>
   
             <nz-table #smallTable 
               nzSize="small"
-              [nzData]="(countriesCount$ | async)" 
+              [nzData]="summary$?.Countries" 
               [nzFrontPagination]="false" 
               [nzBordered]="true" 
               [nzLoadingDelay]="500"
               [nzSimple]="true"
-              [nzPageSize]="(countriesCount$ | async)?.length"
+              [nzPageSize]="summary$?.Countries.length"
               [nzScroll]="{ y: '450px' }">
               <thead (nzSortChange)="sort($event)" nzSingleSort>
                 <tr>
@@ -99,23 +99,19 @@
                     Muertes <strong><i>(Hoy)</i></strong>
                   </th>
                   <th nzWidth="25%">
-                    Pruebas x Millon
+                    Recuperados
                   </th>
                 </tr>
               </thead>
               <tbody>
                 <tr *ngFor="let data of (smallTable.data | byCountry:filteredByCountry)"
-                    [routerLink]="['/country', data.country.toLowerCase()]">
+                    [routerLink]="['/country', data.Slug]">
                   <td nzWidth="25%">
-                    <nz-avatar
-                      nzShape="square" 
-                      nzIcon="user" 
-                      [nzSrc]="data.countryInfo.flag">
-                    </nz-avatar>{{ processName(data) }}
+                    {{ processName(data) }}
                   </td>
-                  <td nzWidth="25%">{{ data.cases | number: '1.0-2' }} <strong><i>({{ data.todayCases | number: '1.0-2' }})</i></strong></td>
-                  <td nzWidth="25%">{{ data.deaths | number: '1.0-2' }} <strong><i>({{ data.todayDeaths | number: '1.0-2' }})</i></strong></td>
-                  <td nzWidth="25%">{{ data.testsPerOneMillion | number: '1.0-2' }}</td>
+                  <td nzWidth="25%">{{ data.TotalConfirmed | number: '1.0-2' }} <strong><i>({{ data.NewConfirmed | number: '1.0-2' }})</i></strong></td>
+                  <td nzWidth="25%">{{ data.TotalDeaths | number: '1.0-2' }} <strong><i>({{ data.NewDeaths | number: '1.0-2' }})</i></strong></td>
+                  <td nzWidth="25%">{{ data.TotalRecovered | number: '1.0-2' }}</td>
                 </tr>
               </tbody>
             </nz-table>
