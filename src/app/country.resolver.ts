@@ -32,8 +32,6 @@ export class CountryResolver implements Resolve<any> {
       };
     }));
 
-    console.log(data);
-
     return data;
   }
 }

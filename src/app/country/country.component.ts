@@ -35,7 +35,6 @@ export class CountryComponent implements AfterViewChecked {
   };
 
   constructor(private route: ActivatedRoute) {
-    console.log(this.country);
     Object.assign(this, { multi: this.getCases() });
   }
 

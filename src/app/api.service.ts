@@ -12,7 +12,7 @@ export class ApiService {
 
   constructor(private http: HttpClient) { }
 
-  getTotal(): Observable<All> {
+  getTotal(): Observable<any> {
     return this.http.get(`https://api.covid19api.com/summary`)
   }
 

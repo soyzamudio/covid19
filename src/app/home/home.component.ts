@@ -22,7 +22,10 @@ export class HomeComponent implements AfterViewChecked {
   sorted = false;
 
   constructor(public api: ApiService) {
-    this.api.getTotal().pipe(take(1)).subscribe((res => this.summary$ = res));
+    this.api.getTotal().pipe(take(1), map(res => {
+      res.Countries = res.Countries.sort((a, b) => a.TotalConfirmed - b.TotalConfirmed).reverse();
+      return res;
+    })).subscribe((res => this.summary$ = res));
   }
 
   ngAfterViewChecked() {
@@ -38,7 +41,7 @@ export class HomeComponent implements AfterViewChecked {
     return country.countryES || country.Country;
   }
 
-  sort(sort: { key: string; value: string }) {
+  sort(event: any) {
     // this.sortValue = sort.value;
 
     // if (this.sorted && this.sortName === sort.key && this.sortValue) {
@@ -53,14 +56,6 @@ export class HomeComponent implements AfterViewChecked {
     //   this.sortName = null;
     //   this.search();
     //   this.sorted = false;
-    // }
-  }
-
-  search() {
-    // if (this.sortValue) {
-    //   this.countriesCount$ = this.api.getByCountries(this.sortName).pipe(map(countries => countries.reverse()));
-    // } else {
-    //   this.countriesCount$ = this.api.getByCountries(this.sortName);
     // }
   }
 }
